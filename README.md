@@ -8,6 +8,8 @@ Automatically redirect a user to a different language page than your default lan
 
 ## Configuration
 
+### Language Support
+
 There are two methods to tell the code which languages you support.
 
 1. You can modify the supportedLangCodes object. The format is:
@@ -26,6 +28,45 @@ There are two methods to tell the code which languages you support.
         <link rel="alternate" href="/zhcn/how.html" hreflang="zh-cn">
         <link rel="alternate" href="/ptbr/how.html" hreflang="pt-br">
         <link rel="alternate" href="/hiin/how.html" hreflang="hi-in">
+
+### options Object
+
+    options = {
+      defaultLangCode: "enus",
+      supportedLangCodes: {},
+      keepCookie: false,
+      removeDashes: true,
+      useLangFolder: false,
+      langCookieName: "lang_code"
+    }
+
+#### defaultLangCode
+
+This is the default language of your website. In this case, English United States
+
+#### supportedLangCodes
+
+Optional if you use links with an hreflang attribute. Otherwise fill in as above.
+
+#### keepCookie
+
+If true, the code will not remove a previously saved language code cookie if it is no longer supported by your website. If the default of false, it will remove the cookie and replace it with the default or calculated cookie.
+
+#### removeDashes
+
+Removes dashes (-) from the `navigator.language` property. This affects the format of you language directory names if using the supportedLangCodes options object.
+
+#### useLangFolder
+
+Set to true if using the supportedLangCodes. It will check the current directory your browser is pointing and not change the location if it is the same as the saved language code.
+
+If set to false the code will calculate the location and if the location is different from the current location, it will change the location.
+
+I leave this property false.
+
+#### langCookieName
+
+The name of the cookie that is saved with the language code. Default is `"lang_code"`.
 
 ## Directory Structure
 
