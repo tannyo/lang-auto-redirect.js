@@ -15,7 +15,7 @@ Either modify the supportedLangCodes object. The format is:
       "zhcn": {supported: true}
     }
 
-Or include the languages you support with link elements that have a hreflang attribute for each language.
+Or include the languages you support with link elements that have a hreflang attribute for each language. It is good practice to include hreflang links on your pages. It helps search engines give language specific content for search.
 
     <link rel="alternate" href="/how.html" hreflang="en-us">
     <link rel="alternate" href="/esmx/how.html" hreflang="es-mx">
@@ -25,7 +25,13 @@ Or include the languages you support with link elements that have a hreflang att
 
 ## Directory Structure
 
-If you use the `supportedLangCodes` object, the code assumes that your directory structure is http://www.yoursite.com/language_code/ format.
+If you use the `supportedLangCodes` object, the code assumes that your directory structure is http://www.yoursite.com/language_code/ format. Your directory structure may look like:
+
+    /            Root default language.
+      /esmx/     Spanish for Mexico.
+      /hiin/     Hindi for India.
+      /ptbr/     Portuguese for Brazil.
+      /zhcn/     Simplified Chinese for China.
 
 If you want your directories to include dashes as "es-us", change `removeDashes` to `false`.
 
@@ -50,6 +56,10 @@ In your code set the `lang_code` cookie to the language value when you change to
       cookie.set("lang_code", langCode, 365);
       location.href = url;
     });
+
+## Notes
+
+The code sets a cookie with the language and country code in a cookie named `lang_code`. This helps the user when they come back to your website if their browser is not setup for their preferred language and the select a different language from your language link, drop down, or page.
 
 ## Issues
 
