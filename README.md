@@ -1,18 +1,55 @@
 # Redirect users to a pre-translated website based on the user's language settings.
 
-A module that I wrote for fun that emulates Apache server side virtual include comments.
+Automatically redirect a user to a different language page than your default language based on the user's language settings in their browser.
 
 ## Usage
 
     <script src="path/to/lang-auto-redirect.js"></script>
 
-In your HTML file, use a comment to include a file.
+Either modify the supportedLangCodes object. The format is:
 
-    <!--#include virtual="join-us.html" -->
+    supportedLangCodes = {
+      "enus": {supported: true},
+      "esmx": {supported: true},
+      "ptbr": {supported: true},
+      "zhcn": {supported: true}
+    }
 
-The HTML comment will cause the code to asynchronously get join-us.html and replace every comment element in your HTML file with the contents of join-us.html.
+Or include the languages you support with link elements that have a hreflang attribute for each language.
 
-Each include file will be retrieved once no matter how many times the file is referenced in your HTML source code.
+    <link rel="alternate" href="/how.html" hreflang="en-us">
+    <link rel="alternate" href="/esmx/how.html" hreflang="es-mx">
+    <link rel="alternate" href="/zhcn/how.html" hreflang="zh-cn">
+    <link rel="alternate" href="/ptbr/how.html" hreflang="pt-br">
+    <link rel="alternate" href="/hiin/how.html" hreflang="hi-in">
+
+## Directory Structure
+
+If you use the `supportedLangCodes` object, the code assumes that your directory structure is http://www.yoursite.com/language_code/ format.
+
+If you want your directories to include dashes as "es-us", change `removeDashes` to `false`.
+
+    removeDashes: false,
+
+## Manually Set the Language
+
+In your code set the `lang_code` cookie to the language value when you change to a different language page. I use the following jQuery code in my country drop down menu.
+
+    $(".country-menu").find("a").click(function (event) {
+      // Put the path parts in an array.
+      // Get rid of the first path and return the file path.
+      // with the href in front.
+      // "/how.html" going to the /esmx/ directory would return
+      // "/esmx/how.html".
+      var la = location.pathname.split('/'),
+        url = this.href + la.slice(la.length - 1).join('/'),
+        langCode = $(this).attr("href").replace(/\//g, "");
+
+      event.preventDefault();
+      langCode = langCode || "enus";
+      cookie.set("lang_code", langCode, 365);
+      location.href = url;
+    });
 
 ## Issues
 
