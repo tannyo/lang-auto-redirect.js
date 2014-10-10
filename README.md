@@ -6,22 +6,26 @@ Automatically redirect a user to a different language page than your default lan
 
     <script src="path/to/lang-auto-redirect.js"></script>
 
-Either modify the supportedLangCodes object. The format is:
+## Configuration
 
-    supportedLangCodes = {
-      "enus": {supported: true},
-      "esmx": {supported: true},
-      "ptbr": {supported: true},
-      "zhcn": {supported: true}
-    }
+There are two methods to tell the code which languages you support.
 
-Or include the languages you support with link elements that have a hreflang attribute for each language. It is good practice to include hreflang links on your pages. It helps search engines give language specific content for search.
+1. You can modify the supportedLangCodes object. The format is:
 
-    <link rel="alternate" href="/how.html" hreflang="en-us">
-    <link rel="alternate" href="/esmx/how.html" hreflang="es-mx">
-    <link rel="alternate" href="/zhcn/how.html" hreflang="zh-cn">
-    <link rel="alternate" href="/ptbr/how.html" hreflang="pt-br">
-    <link rel="alternate" href="/hiin/how.html" hreflang="hi-in">
+        supportedLangCodes = {
+          "enus": {supported: true},
+          "esmx": {supported: true},
+          "ptbr": {supported: true},
+          "zhcn": {supported: true}
+        }
+
+2. Or include the languages you support with link elements that have a hreflang attribute for each language. It is good practice to include hreflang links on your pages. It helps search engines give language specific content for search.
+
+        <link rel="alternate" href="/how.html" hreflang="en-us">
+        <link rel="alternate" href="/esmx/how.html" hreflang="es-mx">
+        <link rel="alternate" href="/zhcn/how.html" hreflang="zh-cn">
+        <link rel="alternate" href="/ptbr/how.html" hreflang="pt-br">
+        <link rel="alternate" href="/hiin/how.html" hreflang="hi-in">
 
 ## Directory Structure
 
@@ -36,6 +40,8 @@ If you use the `supportedLangCodes` object, the code assumes that your directory
 If you want your directories to include dashes as "es-us", change `removeDashes` to `false`.
 
     removeDashes: false,
+
+If you use links with an hreflang attribute, you can use whatever directory structure you want to implement, since it is the href attribute of the link that determines the location of the page.
 
 ## Manually Set the Language
 
@@ -71,6 +77,7 @@ Want to contribute? Great! Just fork the project, make your changes and open a [
 
 ## Changelog
 * v0.10 2014-10-09 TKO Created by Tanny O'Haley
+* v0.11 2014-10-10 TKO Added configurable language code cookie name support.
 
 ## License
 

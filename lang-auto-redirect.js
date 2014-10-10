@@ -45,7 +45,9 @@
  *    "zhcn": {supported: true}
  *  }
  *
- * 29 Sep 2014 TKO v0.1 Created by Tanny O'Haley
+ * 2014-09-29 TKO v0.10 Created by Tanny O'Haley
+ * 2014-10-10 TKO v0.11 Added configurable language code cookie name support.
+ *
  *
  * Wrapper function to hide auto redirect and utility functions.
  */
@@ -59,7 +61,8 @@ var autoLanguageRedirect = (function () {
       supportedLangCodes: {},
       keepCookie: false,
       removeDashes: true,
-      useLangFolder: false
+      useLangFolder: false,
+      langCookieName: "lang_code"
     },
     // Make jsLint happy.
     util,
@@ -223,7 +226,7 @@ var autoLanguageRedirect = (function () {
       langCode = (navigator.language || navigator.userLanguage || navigator.browserLanguage || navigator.systemLanguage || "en-US").toLowerCase(),
       langFolder = (la.length > 2 ? la[1] : options.defaultLangCode),
       page = la[la.length - 1],
-      savedLangCode = util.cookie.get("lang_code"),
+      savedLangCode = util.cookie.get(options.langCookieName),
       href,
       // Support IE for location.origin.
       origin = location.origin || location.protocol + "//" + location.host;
@@ -242,7 +245,7 @@ var autoLanguageRedirect = (function () {
     if (!savedLangCode) {
       // Is it a supported language?
       if (options.supportedLangCodes[langCode]) {
-        util.cookie.set("lang_code", langCode, 365);
+        util.cookie.set(options.langCookieName, langCode, 365);
         savedLangCode = langCode;
       } else {
         // The language code is NOT supported by this site, do not process auto redirect.
@@ -253,7 +256,7 @@ var autoLanguageRedirect = (function () {
     // If the language code is no longer supported, redirect the user to the default language.
     if (!options.supportedLangCodes[savedLangCode].supported) {
       if (!options.keepCookie) {
-        util.cookie.remove("lang_code");
+        util.cookie.remove(options.langCookieName);
       }
 
       savedLangCode = options.defaultLangCode;
