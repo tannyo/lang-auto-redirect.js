@@ -106,7 +106,7 @@ In your code set the `lang_code` cookie to the language value when you change to
 
 ## Notes
 
-The code sets a cookie with the language and country code in a cookie named `lang_code`. This helps the user when they come back to your website if their browser is not setup for their preferred language and the select a different language from your language link, drop down, or page.
+The code sets a cookie with the language and country code in a cookie named `lang_code`. This helps the user when they come back to your website if their browser is not setup for their preferred language and they select a different language from your language link, drop down, or page.
 
 ## Issues
 
